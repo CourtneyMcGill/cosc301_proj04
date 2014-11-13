@@ -28,15 +28,11 @@ int main(int argc, char **argv)
     ta_libinit();
     printf("Finished libinit1 \n");
     int i = 0;
-    //for (i = 0; i < 2; i++) {
-    //    ta_create(thread1, (void *)&i);
-    //	printf("created thread 1 \n");
-    //    ta_create(thread2, (void *)&i);
-    //	printf("created thread 2 \n");
-    //}
-    printf("creating thread 1\n");
-    ta_create(thread1, (void *)&i);
-    printf("created thread 1 \n");
+    for (i = 0; i < 2; i++) {
+        ta_create(thread1, (void *)&i);
+    	printf("created thread 1 \n");
+        ta_create(thread2, (void *)&i);
+    	printf("created thread 2 \n");}
 
     int rv = ta_waitall();
     if (rv) {

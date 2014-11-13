@@ -1,5 +1,3 @@
-
-
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
@@ -7,7 +5,6 @@
 #include <strings.h>
 #include <string.h>
 #include <ucontext.h>
-
 #include "list.c"
 #include "list.h"
 
@@ -27,7 +24,6 @@ void ta_libinit(void) {
 }
 
 void ta_create(void (*func)(void *), void *arg) {
-    printf("here1\n");
     unsigned char *stack = (unsigned char *)malloc(128000);
     ucontext_t ctx;
     getcontext(&ctx); //initiliaze context
@@ -36,18 +32,22 @@ void ta_create(void (*func)(void *), void *arg) {
     ctx.uc_link = &main_ctx;
     makecontext(&ctx, (void (*) (void)) func, 1, arg); //thread goes to func
 
-    printf("here2\n");
     struct node *new_thread = malloc(sizeof(struct node));
     new_thread->next = NULL;
     new_thread->ctx = ctx;
+
+
+    if (list == NULL){
+	list = new_thread;
+	return;
+    }
     struct node *temp = list;
-    printf("here3\n");
+
     while(temp->next != NULL){
 	temp = temp -> next;
     }
     temp->next = new_thread;
 
-    //list_append(&ctx, &list); 
     return;
 }
 
@@ -72,11 +72,11 @@ int ta_waitall(void) {
     if (list == NULL)
        {return 0;}
     struct node *current_node = list;
-    printf("here");
     while(current_node != NULL){
 	swapcontext(&main_ctx, &current_node->ctx);
 	current_node = current_node->next;
     }
+	printf("Jack's fault\n");
     while(list!=NULL){
 	struct node *temp = list;
  	list = list->next;
