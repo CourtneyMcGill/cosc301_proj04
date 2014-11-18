@@ -72,9 +72,9 @@ int ta_waitall(void) {
 			free(temp);
 		}
 	}
-	if(cond_blocked!=0 || sem_blocked < 0){
-		printf("condblocked = %d \n", cond_blocked);
-		printf("semblocked = %d \n", sem_blocked);
+	if(cond_blocked!=0 || sem_blocked != 0){
+	//	printf("condblocked = %d \n", cond_blocked);
+	//	printf("semblocked = %d \n", sem_blocked);
 		return -1;
 	}
 	else{
