@@ -12,6 +12,10 @@
 /* ***************************** 
      stage 1 library functions
    ***************************** */
+
+// COURTNEY MCGILL and PARKER REYNOLDS
+
+
 ucontext_t main_ctx; //global variabe will not be placed in queue used for swapping purposes
 struct node* list;
 int destroyed_threads = 0;
