@@ -72,11 +72,12 @@ int ta_waitall(void) {
 		}
 	}
 	if(cond_blocked!=0 || sem_blocked != 0){
-		printf("condblocked = %d \n", cond_blocked);
-		printf("semblocked = %d \n", sem_blocked);
+//		printf("condblocked = %d \n", cond_blocked);
+//		printf("semblocked = %d \n", sem_blocked);
 		return -1;
 	}
 	else{
+//		printf("wooooo this worked! \n");
 		return 0;
 	}
 
@@ -109,7 +110,7 @@ void ta_sem_post(tasem_t *sem) {
 	sem->count++;
 	if((sem->count > 0) && sem->sem_list != NULL){
 	        sem_blocked --;
-		printf("decremented sem blocked-- is now = %d \n", sem_blocked);
+//		printf("decremented sem blocked-- is now = %d \n", sem_blocked);
 		//move current thread to end of ready list
 		struct node *head = list;
 		list = list->next;
@@ -130,9 +131,9 @@ void ta_sem_post(tasem_t *sem) {
 void ta_sem_wait(tasem_t *sem) {
 	//if value > 0 then decrement and keep running
 	//if value of semaphore is 0 then you need to add yourself to the semqueue and take off ready queue context switch to new head of ready queue
-	if(sem->count ==0){
+	if(sem->count <= 0){
 	        sem_blocked ++;
-		printf("increamented sem blocked-- is now = %d \n", sem_blocked);
+//		printf("increamented sem blocked-- is now = %d \n", sem_blocked);
 		//take first node off of ready queue
 		struct node *thread = list;
 		list = list->next;
@@ -140,8 +141,8 @@ void ta_sem_wait(tasem_t *sem) {
 		list_append(thread, &sem->sem_list);
 		//swap context to new head of redy queue
 		swapcontext(&thread->ctx, &list->ctx);
-	}
-	else{
+	//}
+	//else{
 	    sem->count --;
 	}
 
