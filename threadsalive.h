@@ -19,7 +19,8 @@ typedef struct {
 } talock_t;
 
 typedef struct {
-   struct node *cond_list;
+    struct node *cond_list;
+//   struct node *cond_list;
 } tacond_t;
 
 

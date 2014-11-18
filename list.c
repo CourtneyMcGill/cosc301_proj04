@@ -3,19 +3,20 @@
 #include "list.h"
 #include <ucontext.h>
 
-void list_append(ucontext_t *context, struct node **head){
-    struct node *new_node = malloc(sizeof(struct node)); //make space on heap
-    new_node->ctx = *context;
-    new_node->next = NULL;
-	if (*head == NULL){
-	    *head = new_node;
-	    return;
+void list_append(struct node *thread, struct node **head){
+   thread->next = NULL;
+   struct node *temp = *head;
+   if (*head == NULL){
+     *head = thread;
+  //   printf("first thing \n");
+   }
+   else{
+      while(temp->next != NULL){
+	  temp = temp->next;
 	}
-    struct node *temp = *head;
-    while(temp->next != NULL){
-	temp = temp->next;
-    }
-    temp->next = new_node;
+      temp->next = thread;
+ //     printf("appended 2 \n");
+   }
 }
 
 void list_clear(struct node *list) {

@@ -10,8 +10,7 @@ struct node{
     struct node *next; 
 };
 
-void list_append(ucontext_t *ctx, struct node **head);
-
+void list_append(struct node *new_node, struct node **head);
 
 void list_clear(struct node *list);
 
